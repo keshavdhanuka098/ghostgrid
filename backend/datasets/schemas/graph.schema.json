@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ghostgrid.local/schemas/graph.schema.json",
+  "title": "GhostGrid dependency graph",
+  "type": "object",
+  "required": ["assets", "dependencies"],
+  "properties": {
+    "engineVersion": {"type": "string"},
+    "assets": {"type": "array", "items": {"type": "object", "required": ["id", "name", "kind", "criticality"], "properties": {"id": {"type": "string", "minLength": 1}, "name": {"type": "string"}, "kind": {"enum": ["power", "network", "compute", "data", "water", "transport", "service", "other"]}, "criticality": {"enum": ["low", "medium", "high", "critical"]}}}},
+    "dependencies": {"type": "array", "items": {"type": "object", "required": ["id", "dependentId", "providerId", "mode", "status", "relation"], "properties": {"id": {"type": "string", "minLength": 1}, "dependentId": {"type": "string"}, "providerId": {"type": "string"}, "mode": {"enum": ["required", "alternate"]}, "status": {"enum": ["confirmed", "inferred", "unknown"]}, "relation": {"enum": ["power", "data", "network", "control", "physical", "service", "other"]}}}}
+  },
+  "additionalProperties": true
+}

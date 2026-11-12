@@ -1,0 +1,58 @@
+:root {
+  /* Surfaces: verdigris-tinted ink, never neutral black */
+  --bg-0: #0a1110;
+  --bg-1: #0e1716;
+  --bg-2: #131e1c;
+  --bg-3: #1a2724;
+  --line: #22302d;
+  --line-strong: #34463f;
+
+  /* Text: ivory, with warm greys */
+  --text: #efe7d6;
+  --text-dim: #b3ac9b;
+  --text-faint: #857f70;
+
+  /* Brass is the house accent. Patina = mapped/visible, brass = hidden dependency, garnet = failure. */
+  --accent: #cda45d;
+  --accent-hi: #e9cf94;
+  --accent-lo: #8a6a30;
+  --accent-bg: rgba(205, 164, 93, 0.1);
+  --signal: #7dbaa8;
+  --signal-dim: #3f7d6d;
+  --signal-bg: rgba(125, 186, 168, 0.1);
+  --ghost: #e0b865;
+  --ghost-bg: rgba(224, 184, 101, 0.12);
+  --danger: #e0766a;
+  --danger-bg: rgba(224, 118, 106, 0.13);
+  --ok: #8fcf9c;
+  --steel: #8fb8c9;
+  --focus: #f3dca2;
+  --up: #b8a3e6;
+  --down: #82c4e6;
+
+  --gold-gradient: linear-gradient(135deg, #f3e2b3 0%, #cda45d 48%, #8a6a30 100%);
+
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+  --gap: 16px;
+  --pad: 20px;
+  --control-h: 38px;
+  --sidebar-w: 264px;
+  --topbar-h: 60px;
+}
+
+:root[data-density='compact'] {
+  --gap: 12px;
+  --pad: 14px;
+  --control-h: 32px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --pad: 14px;
+  }
+}

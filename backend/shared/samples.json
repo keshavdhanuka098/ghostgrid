@@ -1,0 +1,1184 @@
+[
+  {
+    "sampleKey": "metro-corridor",
+    "name": "Metro corridor (simulated sample)",
+    "sector": "Mixed / regional",
+    "description": "Simulated example: two substations feed a carrier hotel that quietly hosts both the fibre ring and the cloud region. Invented data, not real infrastructure.",
+    "assets": [
+      {
+        "id": "northgate",
+        "name": "Northgate Substation",
+        "kind": "power",
+        "criticality": "high",
+        "notes": "Feeds the carrier hotel."
+      },
+      {
+        "id": "riverside",
+        "name": "Riverside Substation",
+        "kind": "power",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "satellite",
+        "name": "Satellite Backhaul",
+        "kind": "network",
+        "criticality": "medium",
+        "notes": "Independent link, currently unused."
+      },
+      {
+        "id": "colo",
+        "name": "Carrier Hotel Colocation",
+        "kind": "network",
+        "criticality": "high",
+        "notes": "Hosts fibre ring equipment and the cloud region."
+      },
+      {
+        "id": "fiber",
+        "name": "Fibre Backbone Ring",
+        "kind": "network",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "cloud",
+        "name": "Cloud Region Hosting",
+        "kind": "compute",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "scada",
+        "name": "SCADA Control Centre",
+        "kind": "compute",
+        "criticality": "medium",
+        "notes": ""
+      },
+      {
+        "id": "pumping",
+        "name": "Water Pumping Station",
+        "kind": "water",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "treatment",
+        "name": "Water Treatment Plant",
+        "kind": "water",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "dispatch",
+        "name": "Emergency Dispatch",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "hospital",
+        "name": "Regional Hospital",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "traffic",
+        "name": "Traffic Signal Control",
+        "kind": "service",
+        "criticality": "medium",
+        "notes": ""
+      },
+      {
+        "id": "payments",
+        "name": "Payment Gateway",
+        "kind": "service",
+        "criticality": "medium",
+        "notes": ""
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "d-colo-northgate",
+        "dependentId": "colo",
+        "providerId": "northgate",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": "Single feeder, confirmed in the (simulated) site survey."
+      },
+      {
+        "id": "d-fiber-colo",
+        "dependentId": "fiber",
+        "providerId": "colo",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "physical",
+        "notes": "Ring terminates in the colocation hall, per carrier documentation."
+      },
+      {
+        "id": "d-cloud-colo",
+        "dependentId": "cloud",
+        "providerId": "colo",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": "Region is hosted in the colocation facility."
+      },
+      {
+        "id": "d-cloud-riverside",
+        "dependentId": "cloud",
+        "providerId": "riverside",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "power",
+        "notes": "Secondary feed assumed; never tested."
+      },
+      {
+        "id": "d-scada-fiber",
+        "dependentId": "scada",
+        "providerId": "fiber",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-pumping-riverside",
+        "dependentId": "pumping",
+        "providerId": "riverside",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-pumping-scada",
+        "dependentId": "pumping",
+        "providerId": "scada",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "control",
+        "notes": "Pump scheduling is commanded remotely."
+      },
+      {
+        "id": "d-treatment-pumping",
+        "dependentId": "treatment",
+        "providerId": "pumping",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": "Raw water supply."
+      },
+      {
+        "id": "d-dispatch-fiber",
+        "dependentId": "dispatch",
+        "providerId": "fiber",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-dispatch-cloud",
+        "dependentId": "dispatch",
+        "providerId": "cloud",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "service",
+        "notes": "Dispatch software believed to run in the cloud region."
+      },
+      {
+        "id": "d-hospital-treatment",
+        "dependentId": "hospital",
+        "providerId": "treatment",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": "Potable water."
+      },
+      {
+        "id": "d-hospital-dispatch",
+        "dependentId": "hospital",
+        "providerId": "dispatch",
+        "mode": "required",
+        "status": "unknown",
+        "relation": "data",
+        "notes": "Patient-transfer coordination; interface not documented."
+      },
+      {
+        "id": "d-hospital-riverside",
+        "dependentId": "hospital",
+        "providerId": "riverside",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-traffic-fiber",
+        "dependentId": "traffic",
+        "providerId": "fiber",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-traffic-riverside",
+        "dependentId": "traffic",
+        "providerId": "riverside",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-payments-cloud",
+        "dependentId": "payments",
+        "providerId": "cloud",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": ""
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-northgate",
+        "name": "Northgate substation outage",
+        "failedIds": [
+          "northgate"
+        ],
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "failedLinkIds": []
+      },
+      {
+        "id": "run-fiber-colo-link",
+        "name": "Fibre ring loses its colocation link",
+        "failedIds": [],
+        "failedLinkIds": [
+          "d-fiber-colo"
+        ],
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "strategies": [
+      {
+        "id": "mit-colo-power",
+        "name": "Second power feed for the colocation",
+        "dependentId": "colo",
+        "providerId": "northgate",
+        "backupId": "riverside",
+        "notes": "Adds a feed from Riverside to the colocation.",
+        "kind": "backup",
+        "costLevel": "medium",
+        "effortLevel": "high"
+      },
+      {
+        "id": "mit-dispatch-link",
+        "name": "Satellite backup for dispatch",
+        "dependentId": "dispatch",
+        "providerId": "fiber",
+        "backupId": "satellite",
+        "notes": "Looks sensible, but dispatch also depends on the cloud region.",
+        "kind": "backup",
+        "costLevel": "low",
+        "effortLevel": "low"
+      },
+      {
+        "id": "mit-dispatch-cloud",
+        "name": "Dispatch stops relying on the cloud region",
+        "kind": "decouple",
+        "dependentId": "dispatch",
+        "providerId": "cloud",
+        "backupId": "",
+        "notes": "Simulated example: a local fallback so dispatch can run without the cloud region.",
+        "costLevel": "high",
+        "effortLevel": "high"
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "as-1",
+        "text": "SIMULATED DATA: invented for demonstration. It does not describe real infrastructure.",
+        "targetType": "scenario",
+        "targetId": null,
+        "confidence": "high",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-2",
+        "text": "The colocation has no second utility feed. On-site generators are ignored in this scenario.",
+        "targetType": "link",
+        "targetId": "d-colo-northgate",
+        "confidence": "medium",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-3",
+        "text": "The Riverside secondary feed to the cloud region exists but has never been tested.",
+        "targetType": "link",
+        "targetId": "d-cloud-riverside",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-4",
+        "text": "The satellite link is provisioned but has never carried production traffic.",
+        "targetType": "node",
+        "targetId": "satellite",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-5",
+        "text": "A hospital to dispatch data interface is presumed to exist. It needs verification.",
+        "targetType": "link",
+        "targetId": "d-hospital-dispatch",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "sampleKey": "harbour-water",
+    "name": "Harbour water and telecom (simulated sample)",
+    "sector": "Water",
+    "description": "Simulated example: a coastal district where water treatment, mobile coverage and emergency services share two grid intakes and one microwave hub. Invented data.",
+    "assets": [
+      {
+        "id": "grid_east",
+        "name": "East Grid Intake",
+        "kind": "power",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "grid_west",
+        "name": "West Grid Intake",
+        "kind": "power",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "genset",
+        "name": "Pump House Generator",
+        "kind": "power",
+        "criticality": "medium",
+        "notes": "Backs up the seawater intake pumps."
+      },
+      {
+        "id": "diesel",
+        "name": "Diesel Depot",
+        "kind": "transport",
+        "criticality": "medium",
+        "notes": "Fuel for the generator and utility trucks."
+      },
+      {
+        "id": "intake_pump",
+        "name": "Seawater Intake Pumps",
+        "kind": "water",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "desal",
+        "name": "Desalination Plant",
+        "kind": "water",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "reservoir",
+        "name": "Hillside Reservoir",
+        "kind": "water",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "booster",
+        "name": "Booster Station",
+        "kind": "water",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "scada",
+        "name": "Water SCADA Core",
+        "kind": "compute",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "backhaul",
+        "name": "Microwave Backhaul Hub",
+        "kind": "network",
+        "criticality": "high",
+        "notes": "Single hub serving both towers."
+      },
+      {
+        "id": "tower_a",
+        "name": "Harbour Cell Tower A",
+        "kind": "network",
+        "criticality": "medium",
+        "notes": ""
+      },
+      {
+        "id": "tower_b",
+        "name": "Ridge Cell Tower B",
+        "kind": "network",
+        "criticality": "medium",
+        "notes": ""
+      },
+      {
+        "id": "ops",
+        "name": "Utility Operations Centre",
+        "kind": "service",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "clinic",
+        "name": "Harbour Clinic",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "fire",
+        "name": "Fire Station Dispatch",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "d-intake_pump-grid_east",
+        "dependentId": "intake_pump",
+        "providerId": "grid_east",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-intake_pump-genset",
+        "dependentId": "intake_pump",
+        "providerId": "genset",
+        "mode": "alternate",
+        "status": "inferred",
+        "relation": "power",
+        "notes": "Transfer switch believed to cover the pumps."
+      },
+      {
+        "id": "d-genset-diesel",
+        "dependentId": "genset",
+        "providerId": "diesel",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": "Fuel resupply by truck."
+      },
+      {
+        "id": "d-desal-intake_pump",
+        "dependentId": "desal",
+        "providerId": "intake_pump",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": ""
+      },
+      {
+        "id": "d-desal-grid_east",
+        "dependentId": "desal",
+        "providerId": "grid_east",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-reservoir-desal",
+        "dependentId": "reservoir",
+        "providerId": "desal",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": ""
+      },
+      {
+        "id": "d-booster-reservoir",
+        "dependentId": "booster",
+        "providerId": "reservoir",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": ""
+      },
+      {
+        "id": "d-booster-grid_west",
+        "dependentId": "booster",
+        "providerId": "grid_west",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-booster-scada",
+        "dependentId": "booster",
+        "providerId": "scada",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "control",
+        "notes": ""
+      },
+      {
+        "id": "d-scada-grid_west",
+        "dependentId": "scada",
+        "providerId": "grid_west",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-scada-backhaul",
+        "dependentId": "scada",
+        "providerId": "backhaul",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "network",
+        "notes": "Remote sites report over the microwave network."
+      },
+      {
+        "id": "d-backhaul-grid_west",
+        "dependentId": "backhaul",
+        "providerId": "grid_west",
+        "mode": "required",
+        "status": "unknown",
+        "relation": "power",
+        "notes": "Battery runtime at the hub is not documented."
+      },
+      {
+        "id": "d-tower_a-backhaul",
+        "dependentId": "tower_a",
+        "providerId": "backhaul",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-tower_b-backhaul",
+        "dependentId": "tower_b",
+        "providerId": "backhaul",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-tower_a-grid_east",
+        "dependentId": "tower_a",
+        "providerId": "grid_east",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-tower_b-grid_west",
+        "dependentId": "tower_b",
+        "providerId": "grid_west",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-ops-scada",
+        "dependentId": "ops",
+        "providerId": "scada",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "control",
+        "notes": ""
+      },
+      {
+        "id": "d-ops-tower_a",
+        "dependentId": "ops",
+        "providerId": "tower_a",
+        "mode": "alternate",
+        "status": "inferred",
+        "relation": "network",
+        "notes": "Mobile data used as a fallback channel."
+      },
+      {
+        "id": "d-ops-tower_b",
+        "dependentId": "ops",
+        "providerId": "tower_b",
+        "mode": "alternate",
+        "status": "inferred",
+        "relation": "network",
+        "notes": "Mobile data used as a fallback channel."
+      },
+      {
+        "id": "d-clinic-booster",
+        "dependentId": "clinic",
+        "providerId": "booster",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": "Mains water pressure."
+      },
+      {
+        "id": "d-clinic-grid_east",
+        "dependentId": "clinic",
+        "providerId": "grid_east",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-fire-tower_a",
+        "dependentId": "fire",
+        "providerId": "tower_a",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": "Radio gateway sits on Tower A."
+      },
+      {
+        "id": "d-fire-ops",
+        "dependentId": "fire",
+        "providerId": "ops",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "data",
+        "notes": "Incident data is exchanged with operations."
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-west",
+        "name": "West grid intake outage",
+        "failedIds": [
+          "grid_west"
+        ],
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "failedLinkIds": []
+      },
+      {
+        "id": "run-hub",
+        "name": "Backhaul hub failure",
+        "failedIds": [
+          "backhaul"
+        ],
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "failedLinkIds": []
+      }
+    ],
+    "strategies": [
+      {
+        "id": "mit-hub-power",
+        "name": "Generator feed for the backhaul hub",
+        "dependentId": "backhaul",
+        "providerId": "grid_west",
+        "backupId": "genset",
+        "notes": "Runs a feed from the pump house generator.",
+        "kind": "backup",
+        "costLevel": "low",
+        "effortLevel": "medium"
+      },
+      {
+        "id": "mit-fire-tower",
+        "name": "Second tower for fire dispatch radio",
+        "dependentId": "fire",
+        "providerId": "tower_a",
+        "backupId": "tower_b",
+        "notes": "",
+        "kind": "backup",
+        "costLevel": "medium",
+        "effortLevel": "low"
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "as-1",
+        "text": "SIMULATED DATA: invented for demonstration. It does not describe real infrastructure.",
+        "targetType": "scenario",
+        "targetId": null,
+        "confidence": "high",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-2",
+        "text": "Failure analysis treats unknown links as live (the conservative choice).",
+        "targetType": "scenario",
+        "targetId": null,
+        "confidence": "medium",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-3",
+        "text": "The hub battery is assumed to last under an hour. This has not been measured.",
+        "targetType": "link",
+        "targetId": "d-backhaul-grid_west",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-4",
+        "text": "The pump house generator can carry the seawater intake pumps for 24 hours.",
+        "targetType": "link",
+        "targetId": "d-intake_pump-genset",
+        "confidence": "medium",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-5",
+        "text": "Tower B and the hub are assumed to be on separate physical sites.",
+        "targetType": "node",
+        "targetId": "tower_b",
+        "confidence": "medium",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "sampleKey": "hospital-campus",
+    "name": "Hospital campus continuity (simulated sample)",
+    "sector": "Healthcare",
+    "description": "Simulated example: a regional hospital where power, cooling, networking and records systems are more entangled than the floor plans suggest. Invented data.",
+    "assets": [
+      {
+        "id": "utility",
+        "name": "Utility Substation Feed",
+        "kind": "power",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "genset",
+        "name": "Emergency Generators",
+        "kind": "power",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "fuel",
+        "name": "Fuel Tank and Resupply",
+        "kind": "transport",
+        "criticality": "high",
+        "notes": "48 hours of on-site fuel assumed."
+      },
+      {
+        "id": "ats",
+        "name": "Automatic Transfer Switches",
+        "kind": "power",
+        "criticality": "critical",
+        "notes": "Choose between utility and generator power."
+      },
+      {
+        "id": "chillers",
+        "name": "Central Chiller Plant",
+        "kind": "other",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "hvac",
+        "name": "Operating Theatre HVAC",
+        "kind": "other",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "medgas",
+        "name": "Medical Gas Plant",
+        "kind": "other",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "core",
+        "name": "Core Network Switches",
+        "kind": "network",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "dc",
+        "name": "On-site Server Room",
+        "kind": "compute",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "isp",
+        "name": "Fibre Carrier Uplink",
+        "kind": "network",
+        "criticality": "medium",
+        "notes": ""
+      },
+      {
+        "id": "isp2",
+        "name": "Secondary Wireless Uplink",
+        "kind": "network",
+        "criticality": "medium",
+        "notes": "Proposed. Not installed."
+      },
+      {
+        "id": "crac",
+        "name": "Dedicated Server Room Cooling",
+        "kind": "other",
+        "criticality": "medium",
+        "notes": "Proposed. Not installed."
+      },
+      {
+        "id": "ehr",
+        "name": "Electronic Health Records",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "pacs",
+        "name": "Imaging Archive (PACS)",
+        "kind": "data",
+        "criticality": "high",
+        "notes": ""
+      },
+      {
+        "id": "icu",
+        "name": "Intensive Care Unit",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "ed",
+        "name": "Emergency Department",
+        "kind": "service",
+        "criticality": "critical",
+        "notes": ""
+      },
+      {
+        "id": "pharmacy",
+        "name": "Pharmacy Cold Storage",
+        "kind": "service",
+        "criticality": "high",
+        "notes": ""
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "d-ats-utility",
+        "dependentId": "ats",
+        "providerId": "utility",
+        "mode": "alternate",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": "Primary source."
+      },
+      {
+        "id": "d-ats-genset",
+        "dependentId": "ats",
+        "providerId": "genset",
+        "mode": "alternate",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": "Starts on utility loss."
+      },
+      {
+        "id": "d-genset-fuel",
+        "dependentId": "genset",
+        "providerId": "fuel",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": ""
+      },
+      {
+        "id": "d-chillers-ats",
+        "dependentId": "chillers",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-hvac-chillers",
+        "dependentId": "hvac",
+        "providerId": "chillers",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": "Chilled water loop."
+      },
+      {
+        "id": "d-hvac-ats",
+        "dependentId": "hvac",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-medgas-ats",
+        "dependentId": "medgas",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-core-ats",
+        "dependentId": "core",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "power",
+        "notes": "Switch closets assumed to be on the essential circuit. Not traced."
+      },
+      {
+        "id": "d-dc-ats",
+        "dependentId": "dc",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-dc-chillers",
+        "dependentId": "dc",
+        "providerId": "chillers",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "physical",
+        "notes": "Server room cooling appears to share the central plant."
+      },
+      {
+        "id": "d-dc-core",
+        "dependentId": "dc",
+        "providerId": "core",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-isp-utility",
+        "dependentId": "isp",
+        "providerId": "utility",
+        "mode": "required",
+        "status": "unknown",
+        "relation": "power",
+        "notes": "Carrier cabinet power source and battery runtime unknown."
+      },
+      {
+        "id": "d-ehr-dc",
+        "dependentId": "ehr",
+        "providerId": "dc",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": ""
+      },
+      {
+        "id": "d-ehr-isp",
+        "dependentId": "ehr",
+        "providerId": "isp",
+        "mode": "required",
+        "status": "unknown",
+        "relation": "data",
+        "notes": "Some modules may be cloud hosted."
+      },
+      {
+        "id": "d-pacs-dc",
+        "dependentId": "pacs",
+        "providerId": "dc",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": ""
+      },
+      {
+        "id": "d-icu-ehr",
+        "dependentId": "icu",
+        "providerId": "ehr",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": ""
+      },
+      {
+        "id": "d-icu-medgas",
+        "dependentId": "icu",
+        "providerId": "medgas",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "physical",
+        "notes": ""
+      },
+      {
+        "id": "d-icu-hvac",
+        "dependentId": "icu",
+        "providerId": "hvac",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "physical",
+        "notes": ""
+      },
+      {
+        "id": "d-icu-ats",
+        "dependentId": "icu",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-ed-ehr",
+        "dependentId": "ed",
+        "providerId": "ehr",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "service",
+        "notes": ""
+      },
+      {
+        "id": "d-ed-pacs",
+        "dependentId": "ed",
+        "providerId": "pacs",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "data",
+        "notes": ""
+      },
+      {
+        "id": "d-ed-core",
+        "dependentId": "ed",
+        "providerId": "core",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "network",
+        "notes": ""
+      },
+      {
+        "id": "d-pharmacy-ats",
+        "dependentId": "pharmacy",
+        "providerId": "ats",
+        "mode": "required",
+        "status": "confirmed",
+        "relation": "power",
+        "notes": ""
+      },
+      {
+        "id": "d-pharmacy-ehr",
+        "dependentId": "pharmacy",
+        "providerId": "ehr",
+        "mode": "required",
+        "status": "inferred",
+        "relation": "data",
+        "notes": "Dispensing records are checked against the patient record."
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-utility",
+        "name": "Utility feed outage",
+        "failedIds": [
+          "utility"
+        ],
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "failedLinkIds": []
+      },
+      {
+        "id": "run-double",
+        "name": "Utility outage with fuel shortage",
+        "failedIds": [
+          "utility",
+          "fuel"
+        ],
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "failedLinkIds": []
+      }
+    ],
+    "strategies": [
+      {
+        "id": "mit-uplink",
+        "name": "Secondary wireless uplink for records",
+        "dependentId": "ehr",
+        "providerId": "isp",
+        "backupId": "isp2",
+        "notes": "",
+        "kind": "backup",
+        "costLevel": "medium",
+        "effortLevel": "medium"
+      },
+      {
+        "id": "mit-cooling",
+        "name": "Dedicated cooling for the server room",
+        "dependentId": "dc",
+        "providerId": "chillers",
+        "backupId": "crac",
+        "notes": "Removes the hidden shared cooling dependency.",
+        "kind": "backup",
+        "costLevel": "high",
+        "effortLevel": "high"
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "as-1",
+        "text": "SIMULATED DATA: invented for demonstration. It does not describe real infrastructure.",
+        "targetType": "scenario",
+        "targetId": null,
+        "confidence": "high",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-2",
+        "text": "On-site fuel is assumed to last 48 hours at full load.",
+        "targetType": "node",
+        "targetId": "fuel",
+        "confidence": "medium",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-3",
+        "text": "The transfer switches are assumed to work on demand. Test records were not reviewed.",
+        "targetType": "node",
+        "targetId": "ats",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-4",
+        "text": "Server room cooling is believed to share the central chiller plant. Facilities have not confirmed.",
+        "targetType": "link",
+        "targetId": "d-dc-chillers",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "as-5",
+        "text": "Carrier uplink resilience is unknown. Treated as dependent on the utility feed.",
+        "targetType": "link",
+        "targetId": "d-isp-utility",
+        "confidence": "low",
+        "createdAt": "2026-01-01T00:00:00.000Z"
+      }
+    ]
+  }
+]

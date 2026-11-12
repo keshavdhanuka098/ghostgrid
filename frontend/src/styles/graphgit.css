@@ -1,0 +1,59 @@
+/* ---------- Graph Git ---------- */
+.gg-bar { margin-bottom: 16px; }
+.gg-bar-grid { display: grid; grid-template-columns: minmax(180px, 240px) minmax(0, 1.4fr) auto; gap: 14px 24px; align-items: end; }
+.gg-bar-field { margin: 0; }
+.gg-bar-state { display: flex; flex-direction: column; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
+.gg-bar-actions { grid-column: 1 / -1; }
+.gg-commit-n { color: var(--signal); font-size: 12.5px; }
+
+.gg-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 16px; }
+.gg-main { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.gg-explorer { display: flex; flex-direction: column; gap: 16px; position: sticky; top: calc(var(--topbar-h) + 16px); max-height: calc(100dvh - var(--topbar-h) - 32px); overflow-y: auto; }
+.gg-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.gg-card-head .card-title { margin: 0; }
+.gg-tabs { align-self: flex-start; }
+
+.gg-branch-list { display: flex; flex-direction: column; gap: 4px; }
+.gg-branch-item[data-depth='child'] { border-left: 1px dashed var(--line-strong); margin-left: 6px; }
+.gg-branch { width: 100%; display: flex; flex-direction: column; gap: 3px; padding: 8px 10px; text-align: left; background: none; border: 1px solid transparent; border-radius: var(--radius); color: var(--text); font: inherit; cursor: pointer; }
+.gg-branch:hover:not(:disabled) { background: var(--bg-2); }
+.gg-branch[aria-current='true'] { background: var(--signal-bg); border-color: var(--signal-dim); }
+.gg-branch:disabled { opacity: 0.6; cursor: default; }
+.gg-branch-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.gg-branch-name { font-size: 13.5px; overflow-wrap: anywhere; }
+.gg-branch-meta { font-size: 12px; color: var(--text-dim); overflow-wrap: anywhere; }
+.gg-facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; margin: 10px 0 14px; font-size: 13px; }
+.gg-facts dt { color: var(--text-faint); }
+.gg-facts dd { margin: 0; overflow-wrap: anywhere; }
+
+.gg-graph { margin-top: 0; }
+.gg-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.gg-patches { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 12px; max-height: 320px; overflow-y: auto; }
+.gg-patches li { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 6px 8px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+.gg-patches li[data-reverted='true'] .gg-patch-text { text-decoration: line-through; color: var(--text-faint); }
+.gg-patch-body { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; min-width: 0; font-size: 13px; }
+.gg-patch-text { overflow-wrap: anywhere; }
+.gg-change-list { list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; font-size: 13.5px; }
+.gg-compare-meta { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+
+.gg-timeline { display: flex; flex-direction: column; gap: 0; position: relative; margin-left: 6px; border-left: 2px solid var(--line-strong); }
+.gg-commit { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 16px; padding: 12px 14px 12px 20px; margin-bottom: 8px; background: var(--bg-1); border: 1px solid var(--line); border-radius: var(--radius-lg); margin-left: 14px; }
+.gg-commit::before { content: ''; position: absolute; left: -23px; top: 18px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-0); border: 2px solid var(--line-strong); }
+.gg-commit[data-head='true']::before { border-color: var(--signal); background: var(--signal); }
+.gg-commit[data-viewing='true'] { border-color: var(--signal-dim); background: var(--signal-bg); }
+.gg-commit-main { flex: 1 1 320px; min-width: 0; }
+.gg-commit-top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.gg-commit-msg { overflow-wrap: anywhere; }
+.gg-commit-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 4px; font-size: 12.5px; }
+.gg-commit-sum { margin: 6px 0 0; font-size: 13.5px; color: var(--text-dim); }
+.gg-commit-detail { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.gg-commit-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-start; }
+
+@media (max-width: 1100px) {
+  .gg-layout { grid-template-columns: minmax(0, 1fr); }
+  .gg-explorer { position: static; max-height: none; }
+  .gg-bar-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .gg-branch, .gg-commit { transition: background-color 120ms ease, border-color 120ms ease; }
+}

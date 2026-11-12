@@ -1,0 +1,6 @@
+*.db
+*.db-wal
+*.db-shm
+db.json
+db.json.tmp
+db.json.corrupt-*

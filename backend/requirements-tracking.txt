@@ -1,0 +1,2 @@
+# Optional: only needed to log experiments to Weights & Biases. GhostGrid trains and runs without it.
+wandb>=0.17

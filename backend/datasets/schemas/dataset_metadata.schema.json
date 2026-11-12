@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GhostGrid dataset metadata",
+  "type": "object",
+  "required": ["name", "version", "description", "source", "created_at", "schema_version", "record_count", "format"],
+  "properties": {
+    "name": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "source": {"type": "string"},
+    "license": {"type": "string"},
+    "file": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "schema_version": {"type": "string"},
+    "record_count": {"type": "integer", "minimum": 0},
+    "format": {"enum": ["json", "jsonl", "ndjson", "csv"]},
+    "target_labels": {"type": ["array", "null"], "items": {}},
+    "splits": {"type": ["object", "null"], "properties": {"train": {"type": "number"}, "validation": {"type": "number"}, "test": {"type": "number"}}},
+    "sha256": {"type": "string"}
+  },
+  "additionalProperties": false
+}

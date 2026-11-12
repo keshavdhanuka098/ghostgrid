@@ -1,0 +1,390 @@
+/* Startup splash: engraved monogram, drawn in brass, then a two-leaf curtain opens onto the app. */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--text);
+}
+.splash.is-leaving {
+  pointer-events: none;
+}
+
+/* Two leaves share one seamless background: each radial glow is centred on the seam. */
+.splash-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.2%;
+  background-color: var(--bg-0);
+  transition: transform 1.05s cubic-bezier(0.77, 0, 0.18, 1) 0.3s;
+  will-change: transform;
+}
+.splash-top {
+  top: 0;
+  background-image: radial-gradient(60% 90% at 50% 100%, rgba(125, 186, 168, 0.13), transparent 70%),
+    radial-gradient(45% 70% at 50% 100%, rgba(205, 164, 93, 0.1), transparent 72%);
+  border-bottom: 1px solid rgba(205, 164, 93, 0.5);
+}
+.splash-bottom {
+  bottom: 0;
+  background-image: radial-gradient(60% 90% at 50% 0%, rgba(125, 186, 168, 0.13), transparent 70%),
+    radial-gradient(45% 70% at 50% 0%, rgba(205, 164, 93, 0.1), transparent 72%);
+}
+.splash.is-leaving .splash-top {
+  transform: translateY(-101%);
+}
+.splash.is-leaving .splash-bottom {
+  transform: translateY(101%);
+}
+.splash-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  transition: opacity 0.4s;
+}
+.splash.is-leaving .splash-grain {
+  opacity: 0;
+}
+
+.splash-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 24px;
+  text-align: center;
+  transition: opacity 0.45s ease, transform 0.6s ease;
+}
+.splash.is-leaving .splash-content {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+/* ---- dial ---- */
+.splash-dial {
+  width: min(300px, 62vw);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 0 30px rgba(205, 164, 93, 0.16));
+  animation: sp-glow 3.6s ease-in-out 2.4s infinite;
+}
+.splash-dial-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.sp-rosette {
+  transform-origin: 100px 100px;
+  animation: sp-rosette-in 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both, sp-spin 80s linear 2.2s infinite;
+}
+.sp-rosette ellipse {
+  fill: none;
+  stroke: #cda45d;
+  stroke-width: 0.45;
+  stroke-opacity: 0.55;
+  opacity: 0;
+  animation: sp-fade 0.9s ease forwards;
+}
+.sp-bezel {
+  fill: none;
+  stroke: url(#sp-gold);
+  stroke-width: 1.1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sp-draw 1.7s cubic-bezier(0.6, 0, 0.2, 1) 0.25s forwards;
+}
+.sp-ticks {
+  fill: none;
+  stroke: url(#sp-gold);
+  stroke-width: 2.4;
+  stroke-dasharray: 0.9 4.3;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: sp-fade-to 1.2s ease 1.1s forwards;
+  --to: 0.7;
+}
+.sp-spokes path {
+  fill: none;
+  stroke: url(#sp-gold);
+  stroke-width: 0.9;
+  stroke-dasharray: 2.4 3.6;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: sp-fade-to 1.2s ease 2.6s forwards;
+  --to: 0.85;
+}
+.sp-g {
+  fill: none;
+  stroke: url(#sp-gold);
+  stroke-width: 8.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sp-draw 1.9s cubic-bezier(0.55, 0, 0.15, 1) 0.95s forwards;
+}
+.sp-gem {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sp-gem-in 0.9s cubic-bezier(0.2, 1.4, 0.3, 1) 2.45s both;
+}
+.sp-gem-face {
+  fill: url(#sp-face);
+}
+.sp-gem-cut {
+  fill: none;
+  stroke: #0a1110;
+  stroke-width: 0.8;
+  opacity: 0.35;
+}
+.sp-gem-pulse {
+  fill: none;
+  stroke: #e9cf94;
+  stroke-width: 0.8;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: sp-pulse 2.6s ease-out 3.2s infinite;
+}
+
+/* ---- wordmark ---- */
+.splash-word {
+  margin: 14px 0 0;
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(30px, 5.4vw, 46px);
+  line-height: 1;
+  color: var(--text);
+  animation: sp-track 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s both;
+}
+.splash-word span {
+  display: inline-block;
+  opacity: 0;
+  animation: sp-letter 0.9s ease calc(1.45s + var(--i) * 0.075s) forwards;
+}
+.splash-word span:nth-child(n + 6) {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.splash-tag {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-dim);
+  opacity: 0;
+  animation: sp-fade-to 1.2s ease 2.3s forwards;
+  --to: 1;
+}
+
+/* ---- progress ---- */
+.splash-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 38px;
+  opacity: 0;
+  animation: sp-fade-to 1s ease 1.6s forwards;
+  --to: 1;
+}
+.splash-count {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--accent-hi);
+  line-height: 1;
+}
+.splash-pct {
+  font-size: 34px;
+  font-weight: 500;
+  min-width: 2.2ch;
+  text-align: right;
+}
+.splash-unit {
+  font-size: 15px;
+  color: var(--text-faint);
+}
+.splash-rail {
+  position: relative;
+  width: min(260px, 64vw);
+  height: 1px;
+  background: var(--line-strong);
+  overflow: visible;
+}
+.splash-rail i {
+  position: absolute;
+  inset: 0;
+  background: var(--gold-gradient);
+  transform-origin: left;
+  box-shadow: 0 0 12px rgba(205, 164, 93, 0.8);
+}
+.splash-status {
+  min-height: 1.4em;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  animation: sp-status 0.6s ease both;
+}
+.splash-skip {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  transition: color 0.2s, border-color 0.2s;
+}
+.splash-skip:hover,
+.splash-skip:focus-visible {
+  color: var(--accent-hi);
+  border-color: var(--line-strong);
+}
+.splash-skip kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  font-size: 11px;
+}
+.splash.is-leaving .splash-skip {
+  opacity: 0;
+}
+
+/* ---- keyframes ---- */
+@keyframes sp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sp-fade {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sp-fade-to {
+  to {
+    opacity: var(--to, 1);
+  }
+}
+@keyframes sp-rosette-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82) rotate(-24deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sp-gem-in {
+  from {
+    opacity: 0;
+    transform: scale(0.2) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sp-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+@keyframes sp-glow {
+  50% {
+    filter: drop-shadow(0 0 46px rgba(205, 164, 93, 0.32));
+  }
+}
+@keyframes sp-track {
+  from {
+    letter-spacing: 0.7em;
+  }
+  to {
+    letter-spacing: 0.34em;
+  }
+}
+@keyframes sp-letter {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+@keyframes sp-status {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Reduced motion: show the finished mark at once. */
+.splash.is-reduced .sp-bezel,
+.splash.is-reduced .sp-g {
+  stroke-dashoffset: 0;
+  animation: none;
+}
+.splash.is-reduced .sp-rosette,
+.splash.is-reduced .sp-rosette ellipse,
+.splash.is-reduced .sp-ticks,
+.splash.is-reduced .sp-spokes path,
+.splash.is-reduced .sp-gem,
+.splash.is-reduced .splash-word,
+.splash.is-reduced .splash-word span,
+.splash.is-reduced .splash-tag,
+.splash.is-reduced .splash-meter,
+.splash.is-reduced .splash-dial {
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+.splash.is-reduced .sp-ticks {
+  opacity: 0.7;
+}
+.splash.is-reduced .sp-spokes path {
+  opacity: 0.85;
+}
+.splash.is-reduced .sp-gem-pulse {
+  display: none;
+}
+.splash.is-reduced .splash-word {
+  letter-spacing: 0.34em;
+}

@@ -1,0 +1,101 @@
+/* ===== Surfaces: tables, tabs, forms, graph, simulation, findings, Graph Git, integrations, dialogs. Builds on console.css. ===== */
+.app-root{--r:12px;--glow:0 0 0 1px rgba(205,164,93,.28),0 12px 40px -18px rgba(205,164,93,.45)}
+.app-root ::selection{background:rgba(205,164,93,.35);color:#fff}
+.app-root :focus-visible{outline:2px solid var(--accent-hi);outline-offset:2px;border-radius:6px}
+
+/* tables: quiet rows, sticky gold-lined header, row spotlight */
+.app-root .table-wrap{border:1px solid var(--line);border-radius:var(--r);background:var(--glass);overflow:auto}
+.app-root .table{border-collapse:separate;border-spacing:0;width:100%}
+.app-root .table th{position:sticky;top:0;z-index:1;background:rgba(10,17,34,.95);font:600 11px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);border-bottom:1px solid var(--accent-lo)}
+.app-root .table td{border-bottom:1px solid rgba(44,62,105,.35);transition:background .2s}
+.app-root .table tbody tr:hover td{background:rgba(205,164,93,.06)}
+.app-root .table tbody tr:last-child td{border-bottom:0}
+
+/* tabs / segmented controls: sliding pill feel */
+.app-root .tabs,.app-root .seg,.app-root .gg-tabs{display:inline-flex;gap:2px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(5,9,20,.55)}
+.app-root .tab,.app-root .seg-btn{border:0!important;border-radius:999px;padding:7px 16px;background:transparent;color:var(--text-dim);font-weight:600;font-size:13px;transition:background .25s,color .25s,box-shadow .25s}
+.app-root .tab:hover,.app-root .seg-btn:hover{color:var(--text)}
+.app-root .tab[aria-selected='true'],.app-root .tab.active,.app-root .seg-btn[aria-pressed='true'],.app-root .seg-btn.active,.app-root .seg-btn[aria-checked='true']{background:var(--gold-gradient);color:#1a1307;box-shadow:0 4px 18px -6px rgba(205,164,93,.8)}
+
+/* badges + chips */
+.app-root .badge,.app-root .chip{border-radius:999px;padding:3px 10px;font:600 11px var(--font-sans);letter-spacing:.06em;border:1px solid var(--line-strong);background:rgba(255,255,255,.04)}
+.app-root .badge-ghost{border-color:rgba(224,184,101,.5);background:rgba(224,184,101,.1);color:var(--ghost)}
+.app-root .badge-danger,.app-root .badge-crit{border-color:rgba(224,118,106,.55);background:rgba(224,118,106,.12);color:var(--danger)}
+.app-root .badge-signal{border-color:rgba(125,186,168,.5);background:rgba(125,186,168,.1);color:var(--signal)}
+
+/* forms */
+.app-root .field-label{font:600 11.5px var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim)}
+.app-root .input,.app-root .select,.app-root .textarea{border:1px solid var(--line-strong);border-radius:10px;background:rgba(5,9,20,.65);transition:border-color .25s,box-shadow .25s,background .25s}
+.app-root .input:hover,.app-root .select:hover,.app-root .textarea:hover{border-color:#3d5390}
+.app-root .input:focus,.app-root .select:focus,.app-root .textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(205,164,93,.18);background:rgba(8,14,30,.85)}
+.app-root .field-error{color:var(--danger)}
+
+/* panels with gold corner marks */
+.app-root .panel,.app-root .card,.app-root .integ-card{position:relative}
+.app-root .panel::before,.app-root .integ-card::before{content:'';position:absolute;left:-1px;top:-1px;width:14px;height:14px;border-left:1px solid var(--accent);border-top:1px solid var(--accent);border-top-left-radius:var(--r);opacity:.7;transition:width .4s var(--ease),height .4s var(--ease)}
+.app-root .panel:hover::before,.app-root .integ-card:hover::before{width:28px;height:28px}
+.app-root .panel-h,.app-root .card-title{font-family:var(--font-display);font-weight:500;letter-spacing:.01em}
+
+/* graph: dark instrument surface with a dotted grid */
+.app-root .graph-viewport,.app-root .gg-graph{border:1px solid var(--line);border-radius:var(--r);background:radial-gradient(ellipse at 50% 0%,rgba(46,98,220,.12),transparent 60%),radial-gradient(rgba(130,160,230,.14) 1px,transparent 1px) 0 0/22px 22px,rgba(4,8,18,.8)}
+.app-root .graph-toolbar,.app-root .graph-filters,.app-root .graph-legend{border:1px solid var(--line);border-radius:999px;background:rgba(8,14,30,.75);backdrop-filter:blur(10px);padding:6px 12px}
+.app-root .g-node,.app-root .g-box{transition:filter .3s,opacity .3s}
+.app-root .g-node:hover{filter:drop-shadow(0 0 10px rgba(205,164,93,.75))}
+.app-root .g-link-line,.app-root .sysmap-link{transition:stroke .4s,opacity .4s}
+
+/* simulation + investigation */
+.app-root .round-btn{border-radius:999px;transition:transform .25s var(--ease),box-shadow .25s}
+.app-root .round-btn:hover{transform:scale(1.08);box-shadow:var(--glow)}
+.app-root .round-n{font-family:var(--font-display);font-variant-numeric:tabular-nums}
+.app-root .finding,.app-root .explain-item,.app-root .rank-item,.app-root .scenario-item,.app-root .saved-item,.app-root .pick-item,.app-root .trace-row{border:1px solid var(--line);border-radius:var(--r);background:var(--glass);transition:border-color .3s,transform .35s var(--ease),box-shadow .3s}
+.app-root .finding:hover,.app-root .explain-item:hover,.app-root .rank-item:hover,.app-root .scenario-item:hover,.app-root .saved-item:hover,.app-root .pick-item:hover{border-color:rgba(205,164,93,.45);transform:translateY(-2px);box-shadow:0 14px 34px -22px rgba(205,164,93,.5)}
+.app-root .rank-n,.app-root .flow-n,.app-root .gg-commit-n{font-family:var(--font-display);font-style:italic;color:var(--accent)}
+.app-root .finding-title,.app-root .scenario-name,.app-root .rank-name{font-family:var(--font-display);font-size:1.25rem;font-weight:500}
+.app-root .bar,.app-root .stepper-range{border-radius:6px}
+.app-root .whatif-bar,.app-root .whatif-card,.app-root .whatif-banner{border:1px solid rgba(224,184,101,.4);border-radius:var(--r);background:linear-gradient(90deg,rgba(224,184,101,.12),rgba(224,184,101,.03))}
+.app-root input[type='range']{accent-color:var(--accent)}
+.app-root input[type='checkbox'],.app-root input[type='radio']{accent-color:var(--accent)}
+
+/* Graph Git: glowing timeline */
+.app-root .gg-timeline{position:relative}
+.app-root .gg-timeline::before{content:'';position:absolute;left:-17px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--accent),rgba(205,164,93,.05))}
+.app-root .gg-commit::before{background:var(--bg-0);border:2px solid var(--accent);box-shadow:0 0 12px rgba(205,164,93,.7);transition:transform .3s var(--ease)}
+.app-root .gg-commit:hover::before{transform:scale(1.35)}
+.app-root .gg-branch-item,.app-root .gg-commit-main,.app-root .gg-bar{border-radius:var(--r);border:1px solid var(--line);background:var(--glass)}
+.app-root .gg-branch-item[aria-current='true'],.app-root .gg-branch-item.active{border-color:var(--accent);box-shadow:var(--glow)}
+
+/* integrations + AI */
+.app-root .integ-card{border:1px solid var(--line);border-radius:var(--r);background:var(--glass);transition:transform .35s var(--ease),border-color .3s}
+.app-root .integ-card:hover{transform:translateY(-4px);border-color:rgba(205,164,93,.45)}
+.app-root .integ-mark{border-radius:12px;background:linear-gradient(145deg,rgba(205,164,93,.2),rgba(205,164,93,.04));border:1px solid rgba(205,164,93,.35)}
+.app-root .ai-insight,.app-root .ai-banner,.app-root .ai-result{border:1px solid rgba(120,160,255,.3);border-radius:var(--r);background:linear-gradient(135deg,rgba(46,98,220,.14),rgba(205,164,93,.05))}
+
+/* reports: paper-on-dark preview */
+.app-root .report-preview{border:1px solid var(--line-strong);border-radius:var(--r);background:rgba(5,9,20,.7);box-shadow:inset 0 0 60px rgba(46,98,220,.06)}
+.app-root .rep-h1,.app-root .rep-h2{font-family:var(--font-display);font-weight:500}
+
+/* alerts, empty states, loading */
+.app-root .alert{border-radius:var(--r);backdrop-filter:blur(8px)}
+.app-root .state{padding:56px 24px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(205,164,93,.08),transparent 70%),var(--glass)}
+.app-root .state h2{font-family:var(--font-display);font-weight:500;font-size:1.7rem}
+.app-root .spinner{border-color:rgba(205,164,93,.25);border-top-color:var(--accent-hi)}
+.app-root .state-loading{position:relative;overflow:hidden}
+.app-root .state-loading::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(205,164,93,.07) 50%,transparent 70%);transform:translateX(-100%);animation:shimmer 1.6s infinite}
+@keyframes shimmer{to{transform:translateX(100%)}}
+
+/* dialogs + toasts */
+.app-root .dialog{border:1px solid var(--line-strong);border-radius:16px;background:rgba(9,15,32,.96);backdrop-filter:blur(16px);box-shadow:0 40px 120px -20px rgba(0,0,0,.85),0 0 0 1px rgba(205,164,93,.1);animation:rise .35s var(--ease) both}
+.app-root .dialog::backdrop,.app-root dialog::backdrop{background:rgba(2,4,10,.65);backdrop-filter:blur(6px)}
+.app-root .dialog-title{font-family:var(--font-display);font-weight:500;font-size:1.6rem}
+.app-root .toast{border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:12px;background:rgba(9,15,32,.94);backdrop-filter:blur(14px);box-shadow:0 20px 50px -20px #000;animation:toast .5s var(--ease) both}
+@keyframes toast{from{opacity:0;transform:translateX(30px)}}
+
+/* mobile */
+@media(max-width:720px){
+  .app-root .stat{padding:16px}
+  .app-root .page-head::after{opacity:.6}
+  .app-root .tabs,.app-root .seg{max-width:100%;overflow-x:auto}
+  .app-root .dialog{border-radius:16px 16px 0 0}
+}
+@media(hover:none){.app-root .stat:hover,.app-root .flow-item:hover,.app-root .finding:hover,.app-root .integ-card:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.app-root *{animation-duration:.01s!important;transition-duration:.01s!important}}

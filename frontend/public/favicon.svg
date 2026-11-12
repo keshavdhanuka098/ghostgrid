@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Ghostgrid</title>
+  <defs>
+    <linearGradient id="g" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F3E2B3"/><stop offset=".45" stop-color="#CDA45D"/><stop offset="1" stop-color="#8A6A30"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="#0A1110"/>
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="none" stroke="url(#g)" stroke-opacity=".55" stroke-width="1"/>
+  <path d="M44.73 19.27A18 18 0 1 0 50 32H38.2" fill="none" stroke="url(#g)" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 25.4L38.6 32L32 38.6L25.4 32Z" fill="#F0D79A"/>
+</svg>

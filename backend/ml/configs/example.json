@@ -1,0 +1,13 @@
+{
+  "task": "classification",
+  "model_name": "replace-with-your-model",
+  "model_version": "0.1.0",
+  "dataset_version": "your-dataset-version",
+  "data_root": "datasets/processed",
+  "models_root": "ml/models",
+  "train_file": "train.jsonl",
+  "validation_file": "validation.jsonl",
+  "test_file": "test.jsonl",
+  "model_factory": "ml.models.sklearn_adapter:create_model",
+  "model_kwargs": {"n_estimators": 200, "random_state": 42}
+}

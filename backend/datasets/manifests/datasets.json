@@ -1,0 +1,5 @@
+{
+  "manifest_version": "1.0",
+  "datasets": [],
+  "note": "No external or real-world training datasets are bundled. Register datasets here after validating provenance, licensing and schema."
+}

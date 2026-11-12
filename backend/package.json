@@ -1,0 +1,17 @@
+{
+  "name": "@ghostgrid/backend",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "GhostGrid Node API (Express + SQLite), the shared cascade engine and the Python ML workspace.",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "dev": "node --watch server/index.mjs",
+    "start": "node server/index.mjs",
+    "test": "vitest run",
+    "test:py": "python3 -m unittest discover -s tests -v",
+    "features": "python3 -m ml.feature_engineering.cli"
+  },
+  "dependencies": { "express": "^5.1.0" },
+  "devDependencies": { "@types/express": "^5.0.0", "@types/node": "^22.10.0", "vitest": "^5.1.0" }
+}

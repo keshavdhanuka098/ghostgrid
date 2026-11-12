@@ -1,0 +1,36 @@
+/* One cascade, three layers: Tailwind theme, the app's own CSS ("legacy", in a fixed order), then Tailwind utilities on top. */
+@layer theme, legacy, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import './tokens.css' layer(legacy);
+@import './base.css' layer(legacy);
+@import './ui.css' layer(legacy);
+@import './shell.css' layer(legacy);
+@import './pages.css' layer(legacy);
+@import './splash.css' layer(legacy);
+@import './graphgit.css' layer(legacy);
+@import './luxe.css' layer(legacy);
+@import './polish.css' layer(legacy);
+@import './integrations.css' layer(legacy);
+@import './landing.css' layer(legacy);
+@import './story.css' layer(legacy);
+@import './console.css' layer(legacy);
+@import './surfaces.css' layer(legacy);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@theme inline {
+  --color-ink: var(--bg-0);
+  --color-ink-1: var(--bg-1);
+  --color-ink-2: var(--bg-2);
+  --color-ink-3: var(--bg-3);
+  --color-hair: var(--line);
+  --color-ivory: var(--text);
+  --color-mute: var(--text-dim);
+  --color-faint: var(--text-faint);
+  --color-brass: var(--accent);
+  --color-brass-hi: var(--accent-hi);
+  --color-patina: var(--signal);
+  --color-garnet: var(--danger);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}

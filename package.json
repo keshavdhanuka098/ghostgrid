@@ -1,0 +1,17 @@
+{
+  "name": "ghostgrid-monorepo",
+  "private": true,
+  "version": "0.2.0",
+  "description": "GhostGrid: infrastructure dependency explorer with Graph-Git version control, what-if failure simulation and graph feature extraction.",
+  "workspaces": ["frontend", "backend"],
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "dev": "concurrently -k -n web,api -c yellow,cyan \"npm run dev -w frontend\" \"npm run dev -w backend\"",
+    "build": "npm run build -w frontend",
+    "start": "npm run start -w backend",
+    "typecheck": "npm run typecheck -w frontend",
+    "test": "npm run test -w backend && npm run test -w frontend && npm run test:py -w backend",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": { "concurrently": "^9.1.0" }
+}
