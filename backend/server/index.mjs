@@ -1,3 +1,4 @@
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,8 +13,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const envFile = path.join(root, '.env');
 if (fs.existsSync(envFile)) process.loadEnvFile(envFile);
 
-const port = Number(process.env.PORT ?? 8787);
-const host = process.env.HOST ?? '127.0.0.1';
+const port = Number(process.env.PORT || 8787);
+const host = process.env.HOST || '0.0.0.0';
+
 const dbFile = path.resolve(root, process.env.GHOSTGRID_DB ?? 'data/ghostgrid.db');
 const legacyFile = path.resolve(root, process.env.GHOSTGRID_LEGACY_JSON ?? 'data/db.json');
 const seedSamples = !/^(0|false|no|off)$/i.test(process.env.GHOSTGRID_SEED_SAMPLES ?? 'true');
@@ -35,13 +37,25 @@ try {
 const integrations = createIntegrations({ db });
 const recovered = integrations.recover();
 if (recovered) console.log(`Marked ${recovered} interrupted dataset import(s) as failed.`);
-const app = createApp({ db, staticDir: path.resolve(root, '../frontend/dist'), integrations });
+
+const app = createApp({
+  db,
+  staticDir: path.resolve(root, '../frontend/dist'),
+  integrations
+});
+
 const server = app.listen(port, host, () => {
-  console.log(`GhostGrid API listening on http://${host}:${port}`);
+  const bound = server.address();
+  console.log(`GhostGrid API listening on ${bound.address}:${bound.port}`);
   console.log(`Database: ${dbFile}`);
 });
+
 server.on('error', (err) => {
-  console.error(err.code === 'EADDRINUSE' ? `Port ${port} is already in use. Set PORT to another value.` : `Server error: ${err.message}`);
+  console.error(
+    err.code === 'EADDRINUSE'
+      ? `Port ${port} is already in use. Set PORT to another value.`
+      : `Server error: ${err.message}`
+  );
   process.exit(1);
 });
 
@@ -54,7 +68,9 @@ function shutdown() {
     }
     process.exit(0);
   });
+
   setTimeout(() => process.exit(0), 2000).unref();
 }
+
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
